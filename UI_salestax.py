@@ -1,5 +1,96 @@
+import customtkinter as ctk
 import tkinter as tk
 from tkinter import messagebox
+
+class SalesTaxFrame(ctk.CTkFrame):
+    def __init__(self, parent, controller=None, back_callback=None):
+        super().__init__(parent)
+        self.controller = controller
+        self.back_callback = back_callback
+        
+        self.tax_rate = 0.065
+
+        ctk.CTkLabel(self, text="Washington Sales Tax Calculator", font=("Arial", 16, "bold")).pack(pady=10)
+    
+        ctk.CTkLabel(self, text="Enter amount:").pack(pady=5)
+        self.amount_entry = ctk.CTkEntry(self)
+        self.amount_entry.pack(pady=5)
+
+       
+        ctk.CTkLabel(self, text="Washington sales tax rate: 6.5%").pack(pady=5)
+        self.change_rate_var = tk.BooleanVar()
+        self.checkbutton = ctk.CTkCheckBox(self, text="Change tax rate as a percentage", variable=self.change_rate_var, command=self.toggle_rate_entry)
+        self.checkbutton.pack(pady=5)
+
+        
+        self.rate_entry = ctk.CTkEntry(self)
+
+        ctk.CTkButton(self, text="Calculate", command=self.calculate).pack(pady=10)
+
+    
+        self.result_label = ctk.CTkLabel(self, text="", font=("Arial", 12))
+        self.result_label.pack(pady=10)
+
+     
+        ctk.CTkButton(self, text="Clear", command=self.clear).pack(pady=5)
+        
+        if self.controller:
+            ctk.CTkButton(self, text="Back to Main", command=lambda: controller.show_frame("MainDashboard")).pack(pady=10)
+        elif self.back_callback is not None:
+            self.back_button = ctk.CTkButton(self, text="Back to Main Menu", command=self.back_callback)
+            self.back_button.pack(pady=10)
+
+    def toggle_rate_entry(self):
+        if self.change_rate_var.get():
+            self.rate_entry.pack(pady=5)
+        else:
+            self.rate_entry.pack_forget()
+            self.rate_entry.delete(0, tk.END)
+
+    def parsecurrency(self, text):
+        cleaned = text.strip().replace(',', '').replace('$', '')
+        if not cleaned:
+            raise ValueError("Empty amount")
+        return float(cleaned)
+
+    def parsetaxrate(self, text):
+        cleaned = text.strip().replace('%', '').replace(',', '')
+        if not cleaned:
+            raise ValueError("Empty rate")
+        value = float(cleaned)
+        return value / 100 if value > 1 else value
+
+    def calculate(self):
+        try:
+            amount = self.parsecurrency(self.amount_entry.get())
+            if amount <= 0:
+                messagebox.showerror("Error", "Please enter a positive amount.")
+                return
+
+            if self.change_rate_var.get():
+                try:
+                    new_rate = self.parsetaxrate(self.rate_entry.get())
+                    self.tax_rate = new_rate
+                except ValueError:
+                    messagebox.showerror("Error", "Please enter a valid tax rate.")
+                    return
+
+            tax = round(amount * self.tax_rate, 2)
+            total = round(amount + tax, 2)
+
+            self.result_label.configure(text=f"Tax: ${tax:.2f}\nTotal: ${total:.2f}")
+
+        except ValueError:
+            messagebox.showerror("Error", "Please enter a valid amount.")
+
+    def clear(self):
+        self.amount_entry.delete(0, tk.END)
+        self.rate_entry.delete(0, tk.END)
+        self.change_rate_var.set(False)
+        self.toggle_rate_entry()
+        self.result_label.configure(text="")
+        self.tax_rate = 0.065  
+
 
 class TaxCalculator:
     def __init__(self, root):
