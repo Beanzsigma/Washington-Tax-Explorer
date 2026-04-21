@@ -1,3 +1,5 @@
+from tkinter import font
+
 import customtkinter as ctk
 import tkinter as tk
 from tkinter import messagebox
@@ -10,34 +12,34 @@ class SalesTaxFrame(ctk.CTkFrame):
         
         self.tax_rate = 0.065
 
-        ctk.CTkLabel(self, text="Washington Sales Tax Calculator", font=("Arial", 16, "bold")).pack(pady=10)
+        ctk.CTkLabel(self, text="Washington Sales\nTax Calculator", font=("Courier New", 22, "bold")).pack(pady=10)
     
-        ctk.CTkLabel(self, text="Enter amount:").pack(pady=5)
-        self.amount_entry = ctk.CTkEntry(self)
+        ctk.CTkLabel(self, text="Enter amount:", font=("Courier New", 15, "bold")).pack(pady=5)
+        self.amount_entry = ctk.CTkEntry(self, font=("Courier New", 12), text_color="#5595f5")
         self.amount_entry.pack(pady=5)
 
-       
-        ctk.CTkLabel(self, text="Washington sales tax rate: 6.5%").pack(pady=5)
+
+        ctk.CTkLabel(self, text="Washington sales\ntax rate: 6.5%", font=("Courier New", 16, "bold")).pack(pady=5)
         self.change_rate_var = tk.BooleanVar()
-        self.checkbutton = ctk.CTkCheckBox(self, text="Change tax rate as a percentage", variable=self.change_rate_var, command=self.toggle_rate_entry)
+        self.checkbutton = ctk.CTkCheckBox(self, text="Change tax rate as a percentage", font=("Courier New", 15, "bold"), variable=self.change_rate_var, command=self.toggle_rate_entry)
         self.checkbutton.pack(pady=5)
 
         
-        self.rate_entry = ctk.CTkEntry(self)
+        self.rate_entry = ctk.CTkEntry(self, font=("Courier New", 12), text_color='#5595f5')
 
-        ctk.CTkButton(self, text="Calculate", command=self.calculate).pack(pady=10)
+        ctk.CTkButton(self, text="Calculate", font=("Courier New", 14, "bold"), border_width=2, border_color="#5595f5", corner_radius=32, text_color="#FFFFFF", fg_color="#2B2D31", command=self.calculate).pack(pady=10)
 
     
-        self.result_label = ctk.CTkLabel(self, text="", font=("Arial", 12))
+        self.result_label = ctk.CTkLabel(self, text="", font=("Courier New", 12))
         self.result_label.pack(pady=10)
 
      
-        ctk.CTkButton(self, text="Clear", command=self.clear).pack(pady=5)
+        ctk.CTkButton(self, text="Clear", font=("Courier New", 14, "bold"), border_width=2, border_color="#5595f5", corner_radius=32, text_color="#FFFFFF", fg_color="#2B2D31", command=self.clear).pack(pady=5)
         
         if self.controller:
             ctk.CTkButton(self, text="Back to Main", command=lambda: controller.show_frame("MainDashboard")).pack(pady=10)
         elif self.back_callback is not None:
-            self.back_button = ctk.CTkButton(self, text="Back to Main Menu", command=self.back_callback)
+            self.back_button = ctk.CTkButton(self, text="Back to Main Menu", font=("Courier New", 14, "bold"), border_width=2, border_color="#5595f5", text_color="#FFFFFF", fg_color="#2B2D31", command=self.back_callback)
             self.back_button.pack(pady=10)
 
     def toggle_rate_entry(self):
@@ -102,12 +104,12 @@ class TaxCalculator:
         self.tax_rate = 0.065
 
     
-        tk.Label(root, text="Enter amount:").pack(pady=5)
+        tk.Label(root, text="Enter amount:", font=("Courier New", 15, "bold")).pack(pady=5)
         self.amount_entry = tk.Entry(root)
         self.amount_entry.pack(pady=5)
 
        
-        tk.Label(root, text="Washington sales tax rate: 6.5%").pack(pady=5)
+        tk.Label(root, text="Washington sales\ntax rate: 6.5%", font=("Courier New", 16, "bold")).pack(pady=5)
         self.change_rate_var = tk.BooleanVar()
         tk.Checkbutton(root, text="Change tax rate as a percentage", variable=self.change_rate_var, command=self.toggle_rate_entry).pack(pady=5)
 
@@ -119,7 +121,7 @@ class TaxCalculator:
         tk.Button(root, text="Calculate", command=self.calculate).pack(pady=10)
 
     
-        self.result_label = tk.Label(root, text="", font=("Arial", 12))
+        self.result_label = tk.Label(root, text="", font=("Courier New", 12))
         self.result_label.pack(pady=10)
 
      
