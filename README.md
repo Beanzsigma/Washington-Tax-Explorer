@@ -10,8 +10,6 @@ The Washington Tax Explorer is a calculator that estimates different types of ta
 Small amounts of AI is used to debug/fix code.
 FYI: The web playable version of this code is converted from python to HTML. 
 
-1. Install dependencies:
-   pip install -r requirements.txt
+NOTE: When running, some will be met with a Windows Defender screen. To run, click "read more," then "run anyways." Also, sometimes the application may not run, or will take some time. Please be patient.
 
-2. Run the app:
-   python dashboard.py
+1: To run: install latest release, and open.
