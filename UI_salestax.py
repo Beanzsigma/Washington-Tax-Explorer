@@ -5,6 +5,7 @@ import tkinter as tk
 from tkinter import messagebox
 
 class SalesTaxFrame(ctk.CTkFrame):
+    ctk.set_appearance_mode("dark")
     def __init__(self, parent, controller=None, back_callback=None):
         super().__init__(parent)
         self.controller = controller

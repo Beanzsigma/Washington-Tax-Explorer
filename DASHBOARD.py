@@ -4,6 +4,8 @@ from UI_salestax import SalesTaxFrame
 from PIL import Image
 from Property_Sales_Tax_UI import PropertyTaxFrame
 
+ctk.set_appearance_mode("dark")
+
 import sys
 import os
 
