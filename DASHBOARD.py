@@ -4,10 +4,20 @@ from UI_salestax import SalesTaxFrame
 from PIL import Image
 from Property_Sales_Tax_UI import PropertyTaxFrame
 
+import sys
+import os
+
+def get_path(relative_path):
+    try:
+        base_path = sys._MEIPASS 
+    except AttributeError:
+        base_path = os.path.abspath(".")
+    return os.path.join(base_path, relative_path)
+
 window = ctk.CTk()
-img_3 = Image.open(r"C:\Users\nisha\Downloads\image-removebg-preview (2).png")
-img_2 = Image.open(r"C:\Users\nisha\Downloads\image-removebg-preview (1).png")
-img = Image.open(r"C:\Users\nisha\Downloads\image-removebg-preview.png")
+img_3 = Image.open(get_path("image-removebg-preview (2).png"))
+img_2 = Image.open(get_path("image-removebg-preview (1).png"))
+img = Image.open(get_path("image-removebg-preview.png"))
 
 label_font = ctk.CTkFont(family="Courier New", size=27, weight="bold")
 button_font_2 = ctk.CTkFont(family="Courier New", size=14, weight="bold")

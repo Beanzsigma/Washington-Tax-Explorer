@@ -5,7 +5,7 @@ a = Analysis(
     ['dashboard.py'],
     pathex=[],
     binaries=[],
-    datas=[],
+    datas=[('image-removebg-preview.png', '.'), ('image-removebg-preview (1).png', '.'), ('image-removebg-preview (2).png', '.')],
     hiddenimports=[],
     hookspath=[],
     hooksconfig={},
